@@ -21,7 +21,7 @@ const TaskType = new GraphQLObjectType({
       phase: {
         type: PhaseType,
         resolve(parent, args) {
-          return Phase.findById(parent.taskId);
+          return Phase.findById(parent.phaseId);
         },
       },
     }),
@@ -79,7 +79,7 @@ const mutation = new GraphQLObjectType({
         type: PhaseType,
         args: {
           description: { type: GraphQLNonNull(GraphQLString) },
-          number: { type: GraphQLNonNull(GraphQLString)},
+          number: { type: GraphQLNonNull(GraphQLString) },
           status: {
             type: new GraphQLEnumType({
               name: 'PhaseStatus',
@@ -89,6 +89,8 @@ const mutation = new GraphQLObjectType({
               },
             }),
             defaultValue: 'Not Started',
+          },
+          phaseID: { type: GraphQLNonNull(GraphQLID) },
         },
         resolve(parent, args) {
           const phase = new Phase({
@@ -121,7 +123,6 @@ const mutation = new GraphQLObjectType({
         type: TaskType,
         args: {
           description: { type: GraphQLNonNull(GraphQLString) },
-          description: { type: GraphQLNonNull(GraphQLString) },
           status: {
             type: new GraphQLEnumType({
               name: 'TaskStatus',
@@ -130,9 +131,9 @@ const mutation = new GraphQLObjectType({
                 completed: { value: 'Completed' },
               },
             }),
-            defaultValue: 'Not Started',
+            defaultValue: 'Not Completed',
           },
-          PhaseId: { type: GraphQLNonNull(GraphQLID) },
+          phaseId: { type: GraphQLNonNull(GraphQLID) },
         },
         resolve(parent, args) {
           const task = new Task({
@@ -144,7 +145,7 @@ const mutation = new GraphQLObjectType({
           return task.save();
         },
       },
-      // Delete a project
+      // Delete a task
       deleteTask: {
         type: TaskType,
         args: {
@@ -154,7 +155,7 @@ const mutation = new GraphQLObjectType({
           return Task.findByIdAndRemove(args.id);
         },
       },
-      // Update a project
+      // Update a task
       updateTask: {
         type: TaskType,
         args: {
@@ -183,8 +184,37 @@ const mutation = new GraphQLObjectType({
           );
         },
       },
+      //Update a phase
+      updatePhase: {
+        type: PhaseType,
+        args: {
+          id: { type: GraphQLNonNull(GraphQLID) },
+          number: { type: GraphQLString },
+          description: { type: GraphQLString },
+          status: {
+            type: new GraphQLEnumType({
+              name: 'PhaseStatusUpdate',
+              values: {
+                new: { value: 'Not Started' },
+                completed: { value: 'Completed' },
+              },
+            }),
+          },
+        },
+        resolve(parent, args) {
+          return Phase.findByIdAndUpdate(
+            arg.id,
+            {
+              $set: {
+                description: args.description,
+                status: args.status
+              },
+            },
+            { new: true }
+          );
+      },
     },
-    }
+  }
 });
 module.exports = new GraphQLSchema({
     query: RootQuery,
