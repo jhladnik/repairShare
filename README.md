@@ -29,6 +29,7 @@
 ## For testing the API, use GraphiQL:
 - In the browser, type localhost:2121/graphql
 
+
 # Query and mutation gist
 ## Running GraphQL Queries & Mutations:
 ### Get numbers of all phases
@@ -37,6 +38,7 @@
         number
     }
 }
+
 ### Get tasks of a specific phase
 {
     phase(id: ) {
@@ -44,6 +46,7 @@
         tasks
     }
 }
+
 ### Get descriptions and status of all tasks
 {
     tasks {
@@ -51,6 +54,7 @@
         status
     }
 }
+
 ### Get numbers and status of all phases
 {
     phases {
@@ -58,6 +62,7 @@
         status
     }
 }
+
 ### Get individual task status with the description and phase number
 {
     task(id: ) {
@@ -68,12 +73,14 @@
         }
     }
 }
+
 ### Delete a phase and return the id
 mutation {
     deletePhase(id: ) {
         id
     }
 }
+
 ### Create a new phase and return all data
 mutation {
     addPhase(number: "1", description: "This is the first of 4 phases", status: "Not Completed") {
@@ -82,6 +89,7 @@ mutation {
         status
     }
 }
+
 ### Create new task and return the description and status
 mutation {
     addTask(description: "Create MVP", status: "Not Completed") {
@@ -89,6 +97,7 @@ mutation {
         status
     }
 }
+
 ### Update a task status and return the phaseID it belongs to with the status of the task
 {
     mutation {
