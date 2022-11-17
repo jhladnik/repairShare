@@ -13,6 +13,7 @@
 - npm init
 - npm i express
 - npm i express-graphql
+- npm i graphql
 - npm i mongoose
 - npm i cors
 - npm i colors
