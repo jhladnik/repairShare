@@ -39,23 +39,16 @@
     }
 }
 
-### Get tasks of a specific phase
-{
-    phase(id: ) {
-        number
-        tasks
-    }
-}
-
-### Get descriptions and status of all tasks
+### Get descriptions, names, and statuses of all tasks
 {
     tasks {
+        name
         description
         status
     }
 }
 
-### Get numbers and status of all phases
+### Get numbers and statuses of all phases
 {
     phases {
         number
@@ -63,9 +56,10 @@
     }
 }
 
-### Get individual task status with the description and phase number
+### Get individual task name, status, description, and phase number
 {
     task(id: ) {
+        name
         status
         description
         phase{
@@ -74,36 +68,50 @@
     }
 }
 
-### Delete a phase and return the id
+### Delete a phase and return the id and number
 mutation {
     deletePhase(id: ) {
+        id
+        number
+    }
+}
+
+### Delete a task and return the id
+mutation {
+    deleteTask(id: ) {
         id
     }
 }
 
 ### Create a new phase and return all data
 mutation {
-    addPhase(number: "1", description: "This is the first of 4 phases", status: "Not Completed") {
+    addPhase (number: "1", description: "This is the first of 4 phases") {
+        id
         number
         description
         status
     }
 }
 
-### Create new task and return the description and status
+### Create new task and return all data
 mutation {
-    addTask(description: "Create MVP", status: "Not Completed") {
+    addTask(name: "MVP", description: "Create minimum viable product", phaseId: "#") {
+        id
+        name
         description
         status
+        phase {
+            number
+        }
     }
 }
 
-### Update a task status and return the phaseID it belongs to with the status of the task
-{
-    mutation {
-        updateTask(status: "Completed") {
-            phaseID
-            status
+### Update a task status and return the phaseId it belongs to with the status of the task
+mutation {
+    updateTask(id: "#", status: completed) {
+        status
+        phase {
+            id
         }
     }
 }
