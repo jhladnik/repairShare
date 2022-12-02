@@ -9,18 +9,19 @@
 - If the tasks in one phase are completed, the next phase will unlock
 - Previous phase MUST be completed to mark off any tasks in the next phase
 
-## To run this app, install the following:
-- npm init
-- npm i express
-- npm i express-graphql
-- npm i graphql
-- npm i mongoose
-- npm i cors
-- npm i colors
-- npm i -D dotenv
+## Dependencies installed include:
+- express
+- express-graphql
+- graphql
+- mongoose
+- cors
+- colors
+- -D dotenv (development)
+- -D nodemon (development)
 
-## Then:
-- in package.json file, in "scripts", delete "test":... and replace with "start": "node server/index.js",
+## To run the backend of this app, open terminal and type either:
+- npm start
+- npm run dev
 
 ## You will aslo need to add a .env file to the server folder containing the following:
 - PORT = 2121
@@ -29,6 +30,9 @@
 ## For testing the API, use GraphiQL:
 - In the browser, type localhost:2121/graphql
 
+## To run the frontend of this app (running on localhost:3000), open second terminal session and type:
+- cd client
+- npm start
 
 # Query and mutation gist
 ## Running GraphQL Queries & Mutations:
