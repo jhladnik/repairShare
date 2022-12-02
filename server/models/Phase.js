@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Creation of phases
+//Creation of phases in the database, which info do we want
 const PhaseSchema = new mongoose.Schema({
   number: {
     type: String,
