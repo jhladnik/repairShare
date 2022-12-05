@@ -1,5 +1,3 @@
-# repairShare
-
 ## Goal: Create a full stack web app using React frontend and GraphQL backend
 ### Every startup goes through several stages, in every stage there are steps that need to be accomplished.  The app should be able to track this progress.
 
